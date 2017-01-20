@@ -23,6 +23,7 @@ SCP_ADDRESS="192.168.1.30" # vMA Address
 SCP_USER="vi-admin" # vMA user (vi-admin)
 SCP_PASSWORD="Password" # vMA user password
 BACKUP_FOLDER="workspace/backups/vcenter" # Absolute path without leading or trailing /
+DAYS_TO_KEEP="7" # Number of days of backups to keep
 #######################################################################################
 
 # Authenticate with basic credentials.
@@ -91,3 +92,5 @@ rm -f task.json
 rm -f response.txt
 rm -f cookies.txt
 echo ''  >>backup.log
+# Remove backups over DAYS_TO_KEEP old
+find /$BACKUP_FOLDER/$VC_ADDRESS/* -type d -ctime +$DAYS_TO_KEEP -exec rm -rf {} +
